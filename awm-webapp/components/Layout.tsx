@@ -15,6 +15,7 @@ import {
 import React, {useState} from 'react'
 import {WithTranslation, withTranslation, Link} from 'i18n'
 import {useAuth} from '@providers/Auth'
+import {setCookie} from 'nookies'
 import UKFLag from '../assets/svg/uk.svg'
 import VNFLag from '../assets/svg/vietnam.svg'
 
@@ -42,6 +43,11 @@ const LayoutComponent: React.FunctionComponent<WithTranslation> = ({
     const newLanguage = language === 'vi' ? 'en' : 'vi'
     setLanguage(newLanguage)
     i18n.changeLanguage(newLanguage)
+    setCookie(null, 'next-i18next', newLanguage, {
+      maxAge: 30 * 24 * 60 * 60,
+      path: '/',
+      secure: true,
+    })
   }
 
   const DropdownMenuItem = (
